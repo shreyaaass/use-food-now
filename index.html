@@ -1,75 +1,95 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="mystyle.css">
-  <title>Use Your Food</title>
-</head>
-<body onload='init()'>
-  <div class="container" id="appTitle">
-    <h1>Use Your Food</h1>
-  </div>
-
-  <div class="container">
-    <div class="row" id="inventory">
-      <table class="table" id="myInv">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Food</th>
-            <th>Amount</th>
-            <th>Expiry</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="mystyle.css" />
+    <title>Use Your Food</title>
+  </head>
+  <body onload="init()">
+    <div class="container" id="appTitle">
+      <h1>Use Your Food</h1>
     </div>
-  </div>
 
-  <div class="container">
-    <div class="row" id="entry">
-      <form class="form-inline">
-        <div class="form-group">
-          <input type="text" class="form-control" id="newFood" placeholder="Enter New Food" required>
-          <input type="text" class="form-control" id="newAmt" placeholder="Amount" required>
-          <select class="form-control" id="newLabel">
-            <option value="qty">qty</option>
-            <option value="lb">lb</option>
-            <option value="oz">oz</option>
-          </select>
-          <select class="form-control" id="newLoc">
-            <option value="fridge">Fridge</option>
-            <option value="cupboard">Cupboard</option>
-          </select>
-          <label for="newExp">Expiration: </label>
-          <input type="date" class="form-control" id="newExp" placeholder="Expiration" required>
-<!--          <input type="text" class="form-control" id="newLife" placeholder="Shelf Life(days)">
--->     </div>
-        <button type="submit" class="btn btn-primary" id="addNew">Add It!</button>
-      </form>
+    <div class="container">
+      <div class="row" id="inventory">
+        <table class="table" id="myInv">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Food</th>
+              <th>Amount</th>
+              <th>Expiry</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
-  </div>
 
-  <div class="container">
-    <div class="row" id="filters">
-      <button type="button" id="fridge">Fridge</button>
-      <button type="button" id="cupboard">Cupboard</button>
+    <div class="container">
+      <div class="row" id="entry">
+        <form class="form-inline">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="newFood"
+              placeholder="Enter New Food"
+              required
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="newAmt"
+              placeholder="Amount"
+              required
+            />
+            <select class="form-control" id="newLabel">
+              <option value="qty">qty</option>
+              <option value="lb">lb</option>
+              <option value="oz">oz</option>
+            </select>
+            <select class="form-control" id="newLoc">
+              <option value="fridge">Fridge</option>
+              <option value="cupboard">Cupboard</option>
+            </select>
+            <label for="newExp">Expiration: </label>
+            <input
+              type="date"
+              class="form-control"
+              id="newExp"
+              placeholder="Expiration"
+              required
+            />
+            <!--          <input type="text" class="form-control" id="newLife" placeholder="Shelf Life(days)">
+-->
+          </div>
+          <button type="submit" class="btn btn-primary" id="addNew">
+            Add It!
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <div class="container">
-    <div class="row" id="nav">
-      <button type="button" id="home">Home</button>
-      <button type="button" id="shop">Shop</button>
-      <button type="button" id="recipe">Recipe</button>
+    <div class="container">
+      <div class="row" id="filters">
+        <button type="button" id="fridge">Fridge</button>
+        <button type="button" id="cupboard">Cupboard</button>
+      </div>
     </div>
-  </div>
 
-  <script type="text/javascript" src="myscript.js"></script>
-</body>
+    <script type="text/javascript" src="myscript.js"></script>
+  </body>
 </html>
