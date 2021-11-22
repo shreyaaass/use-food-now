@@ -14,11 +14,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"
     />
     <link rel="stylesheet" type="text/css" href="mystyle.css" />
-    <title>Use Your Food</title>
+    <title>Your Inventory</title>
   </head>
   <body onload="init()">
     <div class="container" id="appTitle">
-      <h1>Use Your Food</h1>
+      <h1>Your Inventory</h1>
     </div>
 
     <div class="container">
@@ -57,9 +57,10 @@
               required
             />
             <select class="form-control" id="newLabel">
-              <option value="qty">qty</option>
-              <option value="lb">lb</option>
-              <option value="oz">oz</option>
+              <option value="" disabled selected>Select your option</option>
+              <option value="Number">Number</option>
+              <option value="Kilo">kilo</option>
+              <option value="Liters">Liters</option>
             </select>
             <select class="form-control" id="newLoc">
               <option value="fridge">Fridge</option>
@@ -83,9 +84,10 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="option_container">
       <div class="row" id="filters">
         <button type="button" id="fridge">Fridge</button>
+
         <button type="button" id="cupboard">Cupboard</button>
       </div>
     </div>
