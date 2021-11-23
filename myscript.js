@@ -14,12 +14,22 @@ function init() {
     localStorage.foodInv = inv;
   }
 }
-
+fetch("http://localhost:7789/showall", { mode: "no-cors" })
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log("l");
+    console.log(data);
+  });
+console.log("applee");
 // Loop through inventory object to build the inventory table.
 
 function buildInv() {
-  var tableContent = document.getElementById('myInv').getElementsByTagName('tbody')[0];
-  tableContent.innerHTML = '';
+  var tableContent = document
+    .getElementById("myInv")
+    .getElementsByTagName("tbody")[0];
+  tableContent.innerHTML = "";
 
   // expArr has days till expiration values that get sorted and used to access
   // and build sorted table with soonest exp on top.
@@ -30,63 +40,61 @@ function buildInv() {
     invObj[j].days = daysLeft(invObj[j].expiration);
     expArr.push(invObj[j].days);
   }
-  expArr.sort(function(a, b) {
+  expArr.sort(function (a, b) {
     return a - b;
   });
-
 
   // Loop through the sorted expiration array and find the item with that expiration
   // by the index by looping through inventory for each expiration.  For multiple items
   // with same expiration, check to see if items already has an index value assigned
   // (already written into table) and break loop after writing to ensure only one item
   // gets written per expiration.
-  loop1:
-    for (i = 0; i < invObj.length; i++) {
-  loop2:
-      for (l = 0; l < invObj.length; l++) {
-        if (expArr[i] == invObj[l].days) {
-          var duplicate = invObj[l].index;
-          if (!duplicate) {
-            // Assign index number to each entry for deletion / editing
-            var indexLoc = i + 1;
-            invObj[l].index = indexLoc;
+  loop1: for (i = 0; i < invObj.length; i++) {
+    loop2: for (l = 0; l < invObj.length; l++) {
+      if (expArr[i] == invObj[l].days) {
+        var duplicate = invObj[l].index;
+        if (!duplicate) {
+          // Assign index number to each entry for deletion / editing
+          var indexLoc = i + 1;
+          invObj[l].index = indexLoc;
 
-            var foodName = invObj[l].food;
-            var amt = invObj[l].amount;
-            var lbl = invObj[l].label;
-            var expiry = invObj[l].days;
-            var newRow = tableContent.insertRow();
+          var foodName = invObj[l].food;
+          var amt = invObj[l].amount;
+          var lbl = invObj[l].label;
+          var expiry = invObj[l].days;
+          var newRow = tableContent.insertRow();
 
-            var selectCell = newRow.insertCell(0)
-            var foodCell = newRow.insertCell(1);
-            var amtCell = newRow.insertCell(2);
-            var expCell = newRow.insertCell(3);
-            var delCell = newRow.insertCell(4);
+          var selectCell = newRow.insertCell(0);
+          var foodCell = newRow.insertCell(1);
+          var amtCell = newRow.insertCell(2);
+          var expCell = newRow.insertCell(3);
+          var delCell = newRow.insertCell(4);
 
-            foodCell.innerHTML = foodName;
-            amtCell.innerHTML = amt + ' ' + lbl;
-            if (expiry == 0) {
-              expCell.innerHTML = 'Today!';
-            } else if (expiry < 0) {
-              expCell.innerHTML = (0 - expiry) + ' days ago';
-            } else {
-              expCell.innerHTML = expiry + ' days';
-            }
+          foodCell.innerHTML = foodName;
+          amtCell.innerHTML = amt + " " + lbl;
+          if (expiry == 0) {
+            expCell.innerHTML = "Today!";
+          } else if (expiry < 0) {
+            expCell.innerHTML = 0 - expiry + " days ago";
+          } else {
+            expCell.innerHTML = expiry + " days";
+          }
 
-            var checkBox = document.createElement('input');
-            checkBox.type = 'checkbox';
-            checkBox.value = foodName;
-            checkBox.name = 'selectFood';
-            checkBox.title = 'Select For Recipe Search';
-            selectCell.append(checkBox);
+          var checkBox = document.createElement("input");
+          checkBox.type = "checkbox";
+          checkBox.value = foodName;
+          checkBox.name = "selectFood";
+          checkBox.title = "Select For Recipe Search";
+          selectCell.append(checkBox);
 
-            var delButton = document.createElement('button');
-            delButton.setAttribute('id', indexLoc);
-            delButton.setAttribute('class', 'trash');
-            delButton.innerHTML = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
-            delCell.append(delButton);
-            delButton.addEventListener('click', delFunc);
-            break loop2;
+          var delButton = document.createElement("button");
+          delButton.setAttribute("id", indexLoc);
+          delButton.setAttribute("class", "trash");
+          delButton.innerHTML =
+            '<i class="fa fa-trash-o" aria-hidden="true"></i>';
+          delCell.append(delButton);
+          delButton.addEventListener("click", delFunc);
+          break loop2;
         }
       }
     }
@@ -95,15 +103,15 @@ function buildInv() {
 
 // Push user entered item into inventory and rebuild the inventory table.
 
-var submit = document.getElementById('addNew');
-submit.addEventListener('click', addItem);
+var submit = document.getElementById("addNew");
+submit.addEventListener("click", addItem);
 
 function addItem() {
-  var addFood = document.getElementById('newFood').value;
-  var addAmt = document.getElementById('newAmt').value;
-  var addLabel = document.getElementById('newLabel').value;
-  var addLoc = document.getElementById('newLoc').value;
-  var addExp = document.getElementById('newExp').value;
+  var addFood = document.getElementById("newFood").value;
+  var addAmt = document.getElementById("newAmt").value;
+  var addLabel = document.getElementById("newLabel").value;
+  var addLoc = document.getElementById("newLoc").value;
+  var addExp = document.getElementById("newExp").value;
   var newObj = {};
   newObj.food = addFood;
   newObj.amount = addAmt;
@@ -142,7 +150,7 @@ function delFunc() {
 // Calculate days to expiration or days past.
 
 function daysLeft(exp) {
-  var dateArr = exp.split('-');
+  var dateArr = exp.split("-");
   var entYear = parseInt(dateArr[0]);
   var entMon = parseInt(dateArr[1]);
   var entDay = parseInt(dateArr[2]);
@@ -185,9 +193,9 @@ function isDateAfter(day1, mon1, year1, day2, mon2, year2) {
       return true;
     }
     if (mon1 == mon2) {
-      return (day1 > day2);
+      return day1 > day2;
     }
-  return false;
+    return false;
   }
 }
 
@@ -212,7 +220,7 @@ function daysInMonth(year, mon) {
   if (isLeapYear(year)) {
     months[1] = 29;
   }
-  return months[(mon - 1)];
+  return months[mon - 1];
 }
 
 function isLeapYear(year) {
@@ -229,82 +237,51 @@ function isLeapYear(year) {
 
 // Clicking on Fridge or Cupboard hides item rows not in current selection.
 
-var fridgeView = document.getElementById('fridge');
-fridgeView.addEventListener('click', filterView);
+var fridgeView = document.getElementById("fridge");
+fridgeView.addEventListener("click", filterView);
 
-var cupboardView = document.getElementById('cupboard');
-cupboardView.addEventListener('click', filterView);
+var cupboardView = document.getElementById("cupboard");
+cupboardView.addEventListener("click", filterView);
 
 function filterView() {
   var currLoc = this.id;
   var currState = this;
-  var currAct = document.querySelector('.butActive');
+  var currAct = document.querySelector(".butActive");
 
   // If no current filter exists, add .butActive class to button and hide non-selected rows.
   if (!currAct) {
-    currState.setAttribute('class', 'butActive');
+    currState.setAttribute("class", "butActive");
     for (var i = 0; i < invObj.length; i++) {
       if (invObj[i].location !== currLoc) {
         var hideId = invObj[i].index;
         var hideRow = document.getElementById(hideId).parentNode.parentNode;
-        hideRow.setAttribute('class', 'hidden');
+        hideRow.setAttribute("class", "hidden");
       }
     }
 
-  // If user clicks on the active filter, turn off butActive class and remove .hidden from item rows.
-  } else if(currState == currAct) {
-    currAct.removeAttribute('class', 'butActive');
-    var oldFilter = document.querySelectorAll('.hidden');
+    // If user clicks on the active filter, turn off butActive class and remove .hidden from item rows.
+  } else if (currState == currAct) {
+    currAct.removeAttribute("class", "butActive");
+    var oldFilter = document.querySelectorAll(".hidden");
     for (var i = 0; i < oldFilter.length; i++) {
-      oldFilter[i].removeAttribute('class', 'hidden');
+      oldFilter[i].removeAttribute("class", "hidden");
     }
 
-  // If user clicks on fridge while cupboard is active, remove .butActive and .hidden classes
-  // corresponding to cupboard before adding them for fridge.
+    // If user clicks on fridge while cupboard is active, remove .butActive and .hidden classes
+    // corresponding to cupboard before adding them for fridge.
   } else {
-    currAct.removeAttribute('class', 'butActive');
-    var oldFilter = document.querySelectorAll('.hidden');
+    currAct.removeAttribute("class", "butActive");
+    var oldFilter = document.querySelectorAll(".hidden");
     for (var i = 0; i < oldFilter.length; i++) {
-      oldFilter[i].removeAttribute('class', 'hidden');
+      oldFilter[i].removeAttribute("class", "hidden");
     }
-    currState.setAttribute('class', 'butActive');
+    currState.setAttribute("class", "butActive");
     for (var i = 0; i < invObj.length; i++) {
       if (invObj[i].location !== currLoc) {
         var hideId = invObj[i].index;
         var hideRow = document.getElementById(hideId).parentNode.parentNode;
-        hideRow.setAttribute('class', 'hidden');
+        hideRow.setAttribute("class", "hidden");
       }
     }
   }
 }
-
-// Rebuild Inventory with no filters or active button on home click.
-
-var homeView = document.getElementById('home');
-homeView.addEventListener('click', function () {
-  var remActive = document.querySelector('.butActive');
-  if (remActive) {
-    remActive.removeAttribute('class', '.butActive');
-  }
-  buildInv();
-});
-
-// Search for Recipes Using Checked Food
-
-var recipeSearch = document.getElementById('recipe');
-recipeSearch.addEventListener('click', function () {
-  var foodList = document.querySelectorAll('input:checked');
-  var queries = [];
-  for (var i = 0; i < foodList.length; i++) {
-    queries.push(foodList[i].value);
-  }
-  var foodStr = queries.toString();
-  var foodUrl = 'http://www.recipepuppy.com/api/?i=' + foodStr;
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-      var recArr = this.responseText;
-      alert(recArr);
-  }
-  xhttp.open('GET', foodUrl, true);
-  xhttp.send();
-});
