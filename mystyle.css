@@ -50,3 +50,14 @@ form {
   border-radius: 10%;
   border-width: 0ch;
 }
+.visit_other_sites {
+  margin-top: 40px;
+}
+.visit_other_sites button {
+  font-size: 20px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 7px;
+  border-width: 0px;
+  padding: 5px;
+}
